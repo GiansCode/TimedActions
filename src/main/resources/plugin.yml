@@ -1,0 +1,4 @@
+name: TimedActions
+main: io.inkstudios.timedactions.TimedActionsPlugin
+version: 1.0.0
+depend: [Vault]
