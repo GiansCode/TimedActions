@@ -1,9 +1,4 @@
-package io.inkstudios.timedactions;
-
-import io.inkstudios.timedactions.command.AllPlayerCommandPlaceholderParser;
-import io.inkstudios.timedactions.command.ParsedCommand;
-import io.inkstudios.timedactions.command.PlaceholderGroupCommandPlaceholderParser;
-import io.inkstudios.timedactions.command.RandomPlayerCommandPlaceholderParser;
+package io.inkstudios.timedactions.command;
 
 import java.util.Objects;
 
@@ -18,7 +13,6 @@ public class TimedActionCommand {
 	
 	public static final class Builder {
 		
-		private TimedActionCommandExecutorType type;
 		private String command;
 		private int executionQuantity = -1;
 		
@@ -28,21 +22,15 @@ public class TimedActionCommand {
 		
 		public TimedActionCommand build() {
 			validate();
-			return new TimedActionCommand(type, command, executionQuantity);
+			return new TimedActionCommand(command, executionQuantity);
 		}
 		
 		private void validate() {
-			Objects.requireNonNull(type, "Timed action command executor type is missing");
 			Objects.requireNonNull(command, "Command is missing");
 			
 			if (executionQuantity == -1) {
 				throw new IllegalArgumentException("execution quantity is missing");
 			}
-		}
-		
-		public Builder setTimedActionCommandExecutorType(TimedActionCommandExecutorType type) {
-			this.type = type;
-			return this;
 		}
 		
 		public Builder setCommand(String command) {
@@ -57,18 +45,12 @@ public class TimedActionCommand {
 		
 	}
 
-	private final TimedActionCommandExecutorType type;
 	private final String command;
 	private final int executionQuantity;
 	
-	private TimedActionCommand(TimedActionCommandExecutorType type, String command, int executionQuantity) {
-		this.type =  type;
+	private TimedActionCommand(String command, int executionQuantity) {
 		this.command = command;
 		this.executionQuantity = executionQuantity;
-	}
-	
-	public TimedActionCommandExecutorType getType() {
-		return type;
 	}
 	
 	public String getCommand() {

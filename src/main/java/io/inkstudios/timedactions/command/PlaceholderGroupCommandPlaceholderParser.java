@@ -29,7 +29,7 @@ public class PlaceholderGroupCommandPlaceholderParser implements CommandPlacehol
 					.forEach(players::add)
 		);
 		
-		return new ParsedCommand(placeholderGroup.getPlaceholder(), players);
+		return new ParsedCommand("%" + placeholderGroup.getPlaceholder() + "%", players);
 	}
 	
 	private PlaceholderGroup findPlaceholderGroup(String command) {

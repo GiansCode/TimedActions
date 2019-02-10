@@ -1,5 +1,6 @@
 time-actions:
   example:
+    name: "Example"
     chance: 50
     servers:
       - 'skyblock'
@@ -7,12 +8,14 @@ time-actions:
     discord-message: "The Example event is happening on SkyBlock is 5 minutes!"
     minecraft-message: "Join the SkyBlock server for the Example event in 5 minutes!"
     commands:
-      player: []
-      console:
-        - 'eco give %all_players% 100'
-        - 'eco give %random_player% 50;run:10'
+      - 'eco give %all_players% 100'
+      - 'eco give %random_player% 50;run:10'
 
 placeholder-groups:
   donor:
     - 'donator'
     - 'donator1'
+
+interval-time:
+  min: 600000
+  max: 900000

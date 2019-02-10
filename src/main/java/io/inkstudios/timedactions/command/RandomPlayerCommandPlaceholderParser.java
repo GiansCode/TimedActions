@@ -2,8 +2,6 @@ package io.inkstudios.timedactions.command;
 
 import com.google.common.collect.Sets;
 
-import io.inkstudios.timedactions.TimedActionCommand;
-
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

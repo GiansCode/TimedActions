@@ -29,11 +29,19 @@ public final class TimedActionsPlugin extends JavaPlugin implements PluginTransp
 	private CommandService commandService;
 	private Permission permission;
 	
+	private TimedActionConfiguration timedActionConfiguration;
 	private PlaceholderGroups placeholderGroups;
+	private TimedActions timedActions;
 	
 	@Override
 	public void onEnable() {
 		instance = this;
+		
+		getConfig().options().copyDefaults(true);
+		saveDefaultConfig();
+		
+		timedActionConfiguration = new TimedActionConfiguration();
+		timedActionConfiguration.load(getConfig());
 		
 		loadLocale();
 		commandService = new CommandService(this);
@@ -47,7 +55,10 @@ public final class TimedActionsPlugin extends JavaPlugin implements PluginTransp
 			return;
 		}
 		
+		timedActions = new TimedActions();
+		timedActions.loadTimedActions(getConfig());
 		
+		getServer().getScheduler().runTaskTimer(this, new TimedActionTask(), 20L, 20L);
 	}
 	
 	private void loadLocale() {
@@ -74,8 +85,16 @@ public final class TimedActionsPlugin extends JavaPlugin implements PluginTransp
 		instance = null;
 	}
 	
+	public TimedActionConfiguration getTimedActionConfiguration() {
+		return timedActionConfiguration;
+	}
+	
 	public PlaceholderGroups getPlaceholderGroups() {
 		return placeholderGroups;
+	}
+	
+	public TimedActions getTimedActions() {
+		return timedActions;
 	}
 	
 	@Override

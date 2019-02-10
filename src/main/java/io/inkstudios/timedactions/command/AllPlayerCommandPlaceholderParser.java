@@ -1,7 +1,5 @@
 package io.inkstudios.timedactions.command;
 
-import io.inkstudios.timedactions.TimedActionCommand;
-
 import org.bukkit.Bukkit;
 
 import java.util.HashSet;

@@ -1,11 +1,11 @@
 package io.inkstudios.timedactions;
 
+import io.inkstudios.timedactions.command.TimedActionCommand;
+
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 public class TimedAction {
 	
@@ -17,7 +17,6 @@ public class TimedAction {
 		
 		private String name;
 		private double chance = -1;
-		private final Set<String> servers = new HashSet<>();
 		private long timeAfterAnnouncement = -1;
 		private String discordMessage;
 		private String minecraftMessage;
@@ -29,7 +28,7 @@ public class TimedAction {
 		
 		public TimedAction build() {
 			validate();
-			return new TimedAction(name, chance, servers, timeAfterAnnouncement, discordMessage,
+			return new TimedAction(name, chance, timeAfterAnnouncement, discordMessage,
 					minecraftMessage, commands);
 		}
 		
@@ -54,18 +53,6 @@ public class TimedAction {
 		
 		public Builder setChance(double chance) {
 			this.chance = chance;
-			return this;
-		}
-		
-		public Builder addServer(String server) {
-			Objects.requireNonNull(server, "server");
-			servers.add(server);
-			return this;
-		}
-		
-		public Builder addServers(Collection<String> servers) {
-			Objects.requireNonNull(servers, "servers");
-			servers.forEach(this::addServer);
 			return this;
 		}
 		
@@ -100,17 +87,15 @@ public class TimedAction {
 	
 	private final String name;
 	private final double chance;
-	private final Set<String> servers;
 	private final long timeAfterAnnouncement;
 	private final String discordMessage;
 	private final String minecraftMessage;
 	private final List<TimedActionCommand> commands;
 	
-	private TimedAction(String name, double chance, Set<String> servers, long timeAfterAnnouncement,
-						String discordMessage, String minecraftMessage, List<TimedActionCommand> commands) {
+	private TimedAction(String name, double chance, long timeAfterAnnouncement, String discordMessage,
+						String minecraftMessage, List<TimedActionCommand> commands) {
 		this.name = name;
 		this.chance = chance;
-		this.servers = servers;
 		this.timeAfterAnnouncement = timeAfterAnnouncement;
 		this.discordMessage = discordMessage;
 		this.minecraftMessage = minecraftMessage;
@@ -123,10 +108,6 @@ public class TimedAction {
 	
 	public double getChance() {
 		return chance;
-	}
-	
-	public Set<String> getServers() {
-		return new HashSet<>(servers);
 	}
 	
 	public long getTimeAfterAnnouncement() {
