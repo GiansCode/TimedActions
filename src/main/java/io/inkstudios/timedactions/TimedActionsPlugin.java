@@ -18,10 +18,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 
-import discord4j.core.DiscordClient;
-import discord4j.core.DiscordClientBuilder;
-import discord4j.core.object.util.Snowflake;
-
 public final class TimedActionsPlugin extends JavaPlugin implements PluginTransporter {
 
 	private static TimedActionsPlugin instance;
@@ -37,8 +33,6 @@ public final class TimedActionsPlugin extends JavaPlugin implements PluginTransp
 	private TimedActionConfiguration timedActionConfiguration;
 	private PlaceholderGroups placeholderGroups;
 	private TimedActions timedActions;
-	
-	private DiscordClient discordClient;
 	
 	@Override
 	public void onEnable() {
@@ -64,9 +58,6 @@ public final class TimedActionsPlugin extends JavaPlugin implements PluginTransp
 		
 		timedActions = new TimedActions();
 		timedActions.loadTimedActions(getConfig());
-
-		discordClient = new DiscordClientBuilder(timedActionConfiguration.getDiscordToken()).build();
-		discordClient.login().block();
 		
 		getServer().getScheduler().runTaskTimer(this, new TimedActionTask(), 20L, 20L);
 	}
@@ -93,8 +84,6 @@ public final class TimedActionsPlugin extends JavaPlugin implements PluginTransp
 	
 	@Override
 	public void onDisable() {
-		discordClient.logout();
-		
 		instance = null;
 	}
 	
@@ -127,14 +116,6 @@ public final class TimedActionsPlugin extends JavaPlugin implements PluginTransp
 	
 	public Permission getPermission() {
 		return permission;
-	}
-	
-	public DiscordClient getDiscordClient() {
-		return discordClient;
-	}
-	
-	public void sendDiscordMessage(String message) {
-		discordClient.
 	}
 	
 }
