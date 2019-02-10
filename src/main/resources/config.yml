@@ -22,4 +22,4 @@ interval-time:
 
 discord:
   token: "token goes here"
-  channel-id: ""
+  channel-id: "event channel id"

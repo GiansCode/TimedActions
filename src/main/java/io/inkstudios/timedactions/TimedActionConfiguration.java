@@ -10,6 +10,7 @@ public final class TimedActionConfiguration {
 	private long intervalTimeMax;
 	
 	private String discordToken;
+	private String discordChannelId;
 	
 	public void load(FileConfiguration configuration) {
 		Objects.requireNonNull(configuration, "configuration");
@@ -18,6 +19,7 @@ public final class TimedActionConfiguration {
 		intervalTimeMax = configuration.getLong("interval-time.max");
 		
 		discordToken = configuration.getString("discord.token");
+		discordChannelId = configuration.getString("discord.channel-id");
 	}
 	
 	public long getIntervalTimeMin() {
@@ -30,6 +32,10 @@ public final class TimedActionConfiguration {
 	
 	public String getDiscordToken() {
 		return discordToken;
+	}
+	
+	public String getDiscordChannelId() {
+		return discordChannelId;
 	}
 	
 }

@@ -2,6 +2,7 @@ package io.inkstudios.timedactions;
 
 import io.inkstudios.commons.spigot.chat.ChatUtil;
 import io.inkstudios.timedactions.command.ParsedCommand;
+import io.inkstudios.timedactions.metadata.TimedActionMetadataDefaults;
 
 import org.bukkit.Bukkit;
 
@@ -21,7 +22,6 @@ public class TimedActionTask implements Runnable {
 			Instant nextTimedActionTimestamp = timedActions.getNextTimedActionTimestamp();
 			if (nextTimedActionTimestamp == null) {
 				timedActions.setNextTimedActionTimestamp(getNextActionTimestamp());
-				return;
 			} else if (nextTimedActionTimestamp.isBefore(Instant.now())) {
 				TimedAction nextTimedAction = selectNextAction(timedActions.listTimedActions());
 				if (nextTimedAction == null) {
@@ -32,8 +32,7 @@ public class TimedActionTask implements Runnable {
 								Instant.now().plusMillis(nextTimedAction.getTimeAfterAnnouncement())));
 				
 				Bukkit.broadcastMessage(ChatUtil.toColor(nextTimedAction.getMinecraftMessage()));
-				
-				// todo send discord message
+				plugin.sendDiscordMessage(nextTimedAction.getDiscordMessage());
 			}
 		} else {
 			if (!activeTimedAction.isExecuted()) {
@@ -55,7 +54,8 @@ public class TimedActionTask implements Runnable {
 					}
 				});
 				
-				// todo send message?
+				Bukkit.getOnlinePlayers().forEach(online -> plugin.getLocale().sendMessage(online, "event-executed",
+						TimedActionMetadataDefaults.TIMED_ACTION_NAME, activeTimedAction.getTimedAction().getName()));
 				return;
 			}
 			

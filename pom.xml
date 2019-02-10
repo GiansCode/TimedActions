@@ -19,6 +19,17 @@
             <id>vault-repo</id>
             <url>http://nexus.hc.to/content/repositories/pub_releases</url>
         </repository>
+
+        <repository>
+            <id>jcenter</id>
+            <name>jcenter-bintray</name>
+            <url>http://jcenter.bintray.com</url>
+        </repository>
+        <repository> <!-- Required for OkHTTP 3.13.0-SNAPSHOT -->
+            <id>sonatype</id>
+            <name>sonatype-snapshots</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -41,6 +52,13 @@
             <artifactId>VaultAPI</artifactId>
             <version>1.7</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>net.dv8tion</groupId>
+            <artifactId>JDA</artifactId>
+            <version>4.ALPHA.0_35</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

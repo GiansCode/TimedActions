@@ -1,5 +1,8 @@
 package io.inkstudios.timedactions;
 
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.MessageBuilder;
 import net.milkbowl.vault.permission.Permission;
 
 import io.inkstudios.commons.log.Logger;
@@ -16,10 +19,12 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import javax.security.auth.login.LoginException;
+
 import java.io.File;
 
 public final class TimedActionsPlugin extends JavaPlugin implements PluginTransporter {
-
+	
 	private static TimedActionsPlugin instance;
 	
 	public static TimedActionsPlugin getInstance() {
@@ -33,6 +38,8 @@ public final class TimedActionsPlugin extends JavaPlugin implements PluginTransp
 	private TimedActionConfiguration timedActionConfiguration;
 	private PlaceholderGroups placeholderGroups;
 	private TimedActions timedActions;
+	
+	private JDA jda;
 	
 	@Override
 	public void onEnable() {
@@ -58,6 +65,13 @@ public final class TimedActionsPlugin extends JavaPlugin implements PluginTransp
 		
 		timedActions = new TimedActions();
 		timedActions.loadTimedActions(getConfig());
+		
+		try {
+			jda = new JDABuilder(timedActionConfiguration.getDiscordToken())
+					.build();
+		} catch (LoginException exception) {
+			Logger.severe("Failed to connect discord bot", exception);
+		}
 		
 		getServer().getScheduler().runTaskTimer(this, new TimedActionTask(), 20L, 20L);
 	}
@@ -116,6 +130,18 @@ public final class TimedActionsPlugin extends JavaPlugin implements PluginTransp
 	
 	public Permission getPermission() {
 		return permission;
+	}
+	
+	public JDA getJda() {
+		return jda;
+	}
+	
+	public void sendDiscordMessage(String message) {
+		jda.getTextChannelById(timedActionConfiguration.getDiscordChannelId()).sendMessage(
+				new MessageBuilder()
+						.setContent(message)
+						.build()
+		).submit().whenComplete((msg, throwable) -> Logger.info(throwable));
 	}
 	
 }
