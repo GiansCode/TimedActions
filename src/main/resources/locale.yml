@@ -1,3 +1,4 @@
 command-no-permission: "&cYou do not have permission."
 command-rule-failed: "&cCommand rule failed: ${COMMAND_RULE_FAILED}"
 command-argument-missing: "&cCommand argument missing: ${COMMAND_ARGUMENT}"
+event-executed: "&a&l${TIMED_ACTION_NAME} event has been executed."

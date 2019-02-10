@@ -19,3 +19,7 @@ placeholder-groups:
 interval-time:
   min: 600000
   max: 900000
+
+discord:
+  token: "token goes here"
+  channel-id: ""
