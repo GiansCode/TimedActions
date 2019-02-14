@@ -35,6 +35,10 @@ public class TimedActionTask implements Runnable {
 				plugin.sendDiscordMessage(nextTimedAction.getDiscordMessage());
 			}
 		} else {
+			if (activeTimedAction.getCommandExecuteTimestamp().isAfter(Instant.now())) {
+				return;
+			}
+			
 			if (!activeTimedAction.isExecuted()) {
 				activeTimedAction.setExecuted(true);
 				

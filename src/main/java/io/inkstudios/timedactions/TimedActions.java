@@ -43,7 +43,7 @@ public final class TimedActions {
 					.setDiscordMessage(configuration.getString(path + "discord-message"))
 					.setMinecraftMessage(configuration.getString(path + "minecraft-message"));
 			
-			configuration.getStringList(path + "commands.player").forEach(line -> {
+			configuration.getStringList(path + "commands").forEach(line -> {
 				int times = 1;
 				
 				final String command;
@@ -56,7 +56,7 @@ public final class TimedActions {
 						try {
 							times = Integer.parseInt(run[1].trim());
 						} catch (NumberFormatException exception) {
-							Logger.warn("Command failed to compile ");
+							Logger.warn("Command failed to compile");
 						}
 					}
 					command = commandSplit[0];
