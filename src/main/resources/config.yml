@@ -21,5 +21,5 @@ interval-time:
   max: 900000
 
 discord:
-  token: "token goes here"
-  channel-id: "event channel id"
+  token: "NTQ1NTMyNjAxNDY1NTY5Mjgw.D0bChg.GCbx1dnKw41dJpPyVkfCXMJ8JfI"
+  channel-id: 545533663421661185

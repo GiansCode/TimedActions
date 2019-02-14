@@ -69,7 +69,9 @@ public final class TimedActionsPlugin extends JavaPlugin implements PluginTransp
 		try {
 			jda = new JDABuilder(timedActionConfiguration.getDiscordToken())
 					.build();
-		} catch (LoginException exception) {
+			jda.awaitReady();
+			Logger.info("Discord Bot connected");
+		} catch (LoginException | InterruptedException exception) {
 			Logger.severe("Failed to connect discord bot", exception);
 		}
 		
